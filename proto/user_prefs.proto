@@ -1,0 +1,11 @@
+syntax= "proto3";
+
+option java_package = "com.aimirsolutions.demos";
+option java_multiple_files = true;
+
+message Counter {
+   int32 example_counter=1;
+}
+
+//lateinit var counter_proto: TextView
+//val counter: DatASOTORE<Counter> by dataStore
