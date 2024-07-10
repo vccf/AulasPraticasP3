@@ -38,6 +38,7 @@
         </receiver>
         <activity android:name=".Register"/>
         <activity android:name=".Login"/>
+        <activity android:name=".ResearchMovieActivity"/>
 
         <service
             android:name=".MyService"

@@ -118,6 +118,7 @@ class MainActivity : AppCompatActivity(), OnClickListener {
     lateinit var work_not_inf: Button
     lateinit var button_cadastro: Button
     lateinit var button_login: Button
+    lateinit var button_movie_rec : Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -170,6 +171,11 @@ class MainActivity : AppCompatActivity(), OnClickListener {
         button_login = findViewById <Button>(R.id.login_main) as Button
         button_login.setOnClickListener {
             val intent = Intent(this, Login::class.java)
+            startActivity(intent)
+        }
+        button_movie_rec=findViewById <Button> (R.id.pagfilmes) as Button
+        button_movie_rec.setOnClickListener{
+            val intent = Intent(this, ResearchMovieActivity::class.java)
             startActivity(intent)
         }
 

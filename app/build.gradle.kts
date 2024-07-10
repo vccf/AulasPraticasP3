@@ -51,6 +51,9 @@ dependencies {
     implementation("androidx.datastore:datastore-preferences:1.1.1")
     implementation("androidx.datastore:datastore:1.1.1")
     implementation("com.google.protobuf:protobuf-javalite:4.26.1")
+    implementation ("com.squareup.retrofit2:retrofit:2.4.0")
+    implementation ("com.squareup.retrofit2:converter-gson:2.4.0")
+    implementation ("com.google.code.gson:gson:2.8.2")
 
     val room_version= "2.6.1"
     implementation("androidx.room:room-runtime:$room_version")
