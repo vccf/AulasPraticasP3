@@ -41,7 +41,21 @@ class ResearchMovieActivity: AppCompatActivity() {
         val apiKey = "sk-proj-lVPKfbY3b2u7jdaUJEofT3BlbkFJg9fkQ8k1LLfDXDKtbCY7"
 
         val callChatGpt = ApiClient.chatGptService.getCompletion("Bearer $apiKey", chatGptRequest)
-        callChatGpt.enqueue(object : Callback<ChatGptResponse> {
+//        callChatGpt?.enqueue(object: Callback<ChatGptResponse?> {
+//            override fun onResponse(
+//                call: Call<ChatGptResponse?>,
+//                response: Response<ChatGptResponse?>
+//            ) {
+//
+//            }
+//
+//            override fun onFailure(call: Call<ChatGptResponse?>, t: Throwable) {
+//
+//            }
+//
+//
+//        })
+        callChatGpt?.enqueue(object : Callback<ChatGptResponse?> {
             override fun onResponse(call: Call<ChatGptResponse>, response: Response<ChatGptResponse>) {
                 if (response.isSuccessful) {
                     val chatGptResponse = response.body()
@@ -105,13 +119,13 @@ class ResearchMovieActivity: AppCompatActivity() {
     }
 }
 
-fun <T> Call<T>?.enqueue(callback: Callback<OMDbResponse>) {
+//fun <T> Call<T>?.enqueue(callback: Callback<OMDbResponse>) {
+//
+//}
 
-}
-
-fun <T> Call<T>?.enqueue(callback: Callback<ChatGptResponse>) {
-
-}
+//fun <T> Call<T>?.enqueue2(callback: Callback<ChatGptResponse>) {
+//
+//}
 
 //Explanation:
 //MainActivity: Contains UI components (EditText, Button, TextView) for user input and displaying results.

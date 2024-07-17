@@ -5,7 +5,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object ApiClient {
-    private const val BASE_URL_CHATGPT = "https://api.openai.com/"
+    private const val BASE_URL_CHATGPT = "https://api.openai.com/v1/chat/completions/"
     private const val BASE_URL_OMDB = "http://www.omdbapi.com/"
 
     private val gson = GsonBuilder().setLenient().create()
@@ -22,6 +22,8 @@ object ApiClient {
 
     val chatGptService: ChatGptService = retrofitChatGpt.create(ChatGptService::class.java)
     val omdbService: OMDbService = retrofitOMDb.create(OMDbService::class.java)
+
+
 }
 
 //https://platform.openai.com/docs/overview

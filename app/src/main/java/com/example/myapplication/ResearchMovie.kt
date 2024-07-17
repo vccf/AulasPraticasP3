@@ -206,7 +206,7 @@ class ResearchMovie {
 
         val callChatGpt = apiClient.chatGptService.getCompletion("Bearer YOUR_API_KEY", chatGptRequest)
 
-        callChatGpt.enqueue(object : Callback<ChatGptResponse> {
+        callChatGpt.enqueue2(object : Callback<ChatGptResponse> {
             override fun onResponse(call: Call<ChatGptResponse>, response: Response<ChatGptResponse>) {
                 if (response.isSuccessful) {
                     val chatGptResponse = response.body()
