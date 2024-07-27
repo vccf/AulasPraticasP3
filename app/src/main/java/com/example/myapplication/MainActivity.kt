@@ -119,6 +119,8 @@ class MainActivity : AppCompatActivity(), OnClickListener {
     lateinit var button_cadastro: Button
     lateinit var button_login: Button
     lateinit var button_movie_rec : Button
+    lateinit var sim_movies: Button
+    lateinit var sim_fav_movies: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -176,6 +178,16 @@ class MainActivity : AppCompatActivity(), OnClickListener {
         button_movie_rec=findViewById <Button> (R.id.pagfilmes) as Button
         button_movie_rec.setOnClickListener{
             val intent = Intent(this, ResearchMovieActivity::class.java)
+            startActivity(intent)
+        }
+        sim_movies=findViewById <Button> (R.id.sim_movies) as Button
+        sim_movies.setOnClickListener{
+            val intent = Intent(this, SimilarMovies2::class.java)
+            startActivity(intent)
+        }
+        sim_fav_movies=findViewById <Button> (R.id.sim_fav_movies) as Button
+        sim_fav_movies.setOnClickListener{
+            val intent = Intent(this, SimilarFavMovies::class.java)
             startActivity(intent)
         }
 

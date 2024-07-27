@@ -39,6 +39,11 @@
         <activity android:name=".Register"/>
         <activity android:name=".Login"/>
         <activity android:name=".ResearchMovieActivity"/>
+        <activity android:name=".SimilarMovies"/>
+        <activity android:name=".SimilarMovies2"/>
+        <activity android:name=".SimilarFavMovies"/>
+        <activity android:name=".FavouritesActivity"/>
+        <activity android:name=".MovieAdapter"/>
 
         <service
             android:name=".MyService"

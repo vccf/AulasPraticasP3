@@ -12,6 +12,16 @@ data class ChatGptRequest(
     //val maxTokens: Int
 )
 
+data class ChatGptRequest2(
+    val prompt: List<Message>,
+    val model: String
+    //val maxTokens: Int
+)
+data class Message(
+    val role: String,
+    val content: String
+)
+
 data class ChatGptResponse(
     val choices: List<Choice>
 )
@@ -21,11 +31,12 @@ data class Choice(
 )
 
 interface ChatGptService {
-    @POST("v1/completions")
+    @POST("v1/chat/completions")
     fun getCompletion(
-        @Header("Authorization") apiKey: String?,
-        @Body request: ChatGptRequest?
+        //@Header("Authorization") apiKey: String?,
+        @Body request: ChatGptRequest2?
     ): Call<ChatGptResponse?>?
 }
+
 
 

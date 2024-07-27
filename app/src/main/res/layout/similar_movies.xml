@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/similar_movies"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    android:padding="16dp"
+    tools:context=".SimilarMovies2">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center_horizontal">
+
+            <EditText
+                android:id="@+id/etMovieTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Enter movie title" />
+
+            <EditText
+                android:id="@+id/etMovieYear"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Enter movie year" />
+
+            <Button
+                android:id="@+id/btnSearch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Search"
+                android:layout_below="@id/etMovieTitle"
+                android:layout_marginTop="16dp" />
+
+            <TextView
+                android:id="@+id/tvResult"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/btnSearch"
+                android:layout_marginTop="16dp"
+                android:textSize="16sp" />
+
+            <ImageView
+                android:id="@+id/ivPoster"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="Movie Poster"
+                android:layout_marginTop="16dp"/>
+
+            <Button
+                android:id="@+id/btnLoadMore"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Load More"
+                android:layout_below="@id/tvResult"
+                android:layout_marginTop="16dp"
+                android:visibility="gone"/>
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>
+
+
