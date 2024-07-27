@@ -197,36 +197,36 @@ import retrofit2.Response
 //Error Handling:
 //Always handle potential errors gracefully, both in case of unsuccessful API responses and in case of network failures (onFailure callback).
 
-class ResearchMovie {
-
-    private val apiClient = ApiClient // Assuming ApiClient is properly defined as an object or class
-
-    fun requestChatGpt(prompt: String) {
-        val chatGptRequest = ChatGptRequest(prompt = prompt) //, maxTokens = 150)
-
-        val callChatGpt = apiClient.chatGptService.getCompletion("Bearer YOUR_API_KEY", chatGptRequest)
-
-        callChatGpt.enqueue2(object : Callback<ChatGptResponse> {
-            override fun onResponse(call: Call<ChatGptResponse>, response: Response<ChatGptResponse>) {
-                if (response.isSuccessful) {
-                    val chatGptResponse = response.body()
-                    chatGptResponse?.let {
-                        val firstChoiceText = it.choices.firstOrNull()?.text ?: "No choices available"
-                        println("First choice text: $firstChoiceText")
-                        // Process the response as needed
-                    }
-                } else {
-                    // Handle unsuccessful response
-                    println("Error: ${response.code()} - ${response.message()}")
-                }
-            }
-
-            override fun onFailure(call: Call<ChatGptResponse>, t: Throwable) {
-                // Handle failure
-                println("Failed to execute API request: ${t.message}")
-            }
-        })
-    }
+//class ResearchMovie {
+//
+//    private val apiClient = ApiClient // Assuming ApiClient is properly defined as an object or class
+//
+//    fun requestChatGpt(prompt: String) {
+//        val chatGptRequest = ChatGptRequest(prompt = prompt) //, maxTokens = 150)
+//
+//        val callChatGpt = apiClient.chatGptService.getCompletion("Bearer YOUR_API_KEY", chatGptRequest)
+//
+//        callChatGpt.enqueue(object : Callback<ChatGptResponse> {
+//            override fun onResponse(call: Call<ChatGptResponse>, response: Response<ChatGptResponse>) {
+//                if (response.isSuccessful) {
+//                    val chatGptResponse = response.body()
+//                    chatGptResponse?.let {
+//                        val firstChoiceText = it.choices.firstOrNull()?.text ?: "No choices available"
+//                        println("First choice text: $firstChoiceText")
+//                        // Process the response as needed
+//                    }
+//                } else {
+//                    // Handle unsuccessful response
+//                    println("Error: ${response.code()} - ${response.message()}")
+//                }
+//            }
+//
+//            override fun onFailure(call: Call<ChatGptResponse>, t: Throwable) {
+//                // Handle failure
+//                println("Failed to execute API request: ${t.message}")
+//            }
+//        })
+//    } THIS ONE
 
 //    val callOMDb = ApiClient.omdbService.searchMoviesByTitle("13365a7", "Inception")
 //    callOMDb.enqueue(object : Callback<OMDbResponse> {
@@ -268,6 +268,10 @@ class ResearchMovie {
 //            // Handle failure
 //        }
 //    })
+//}
+
+private fun <T> Call<T>?.enqueue(callback: Callback<ChatGptResponse>) {
+
 }
 
 //https://platform.openai.com/docs/quickstart

@@ -16,7 +16,7 @@ data class OMDbResponse(
 
 interface OMDbService {
     @GET("/")
-    fun searchMoviesByTitle(
+    fun getMovieInfo(
         @Query("apikey") apiKey: String,
         @Query("t") title: String
     ): Call<OmdbMovie>

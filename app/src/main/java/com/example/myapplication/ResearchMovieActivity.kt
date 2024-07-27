@@ -1,11 +1,13 @@
 package com.example.myapplication
 
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.example.myapplication.ApiClient
+import com.example.myapplication.ApiClient.chatGptService
 import com.example.myapplication.ChatGptRequest
 import com.example.myapplication.ChatGptResponse
 import com.example.myapplication.OmdbMovie
@@ -30,6 +32,7 @@ class ResearchMovieActivity: AppCompatActivity() {
 
         researchMovieButton.setOnClickListener {
             val query = typeMusicRecEdText.text.toString().trim()
+            Log.d("asdfasdf", "edittext:" + query)
 
             // Example: Request recommendations from ChatGPT
             requestRecommendations(query)
@@ -37,10 +40,17 @@ class ResearchMovieActivity: AppCompatActivity() {
     }
 
     private fun requestRecommendations(query: String) {
-        val chatGptRequest = ChatGptRequest(query)
-        val apiKey = "sk-proj-lVPKfbY3b2u7jdaUJEofT3BlbkFJg9fkQ8k1LLfDXDKtbCY7"
+        Log.d("asdfasdf", query)
+        val prompt = "Recommend 3 movies for someone who likes this song $query"
+        val chatGptRequest = ChatGptRequest2(
+            model = "gpt-3.5-turbo",
+            prompt = listOf(Message(role = "user", content = prompt))
 
-        val callChatGpt = ApiClient.chatGptService.getCompletion("Bearer $apiKey", chatGptRequest)
+        )
+        //val apiKey = "sk-proj-lVPKfbY3b2u7jdaUJEofT3BlbkFJg9fkQ8k1LLfDXDKtbCY7"
+
+        val callChatGpt = chatGptService.getCompletion(chatGptRequest)
+//        val callChatGpt = ApiClient.chatGptService.getCompletion("Bearer $apiKey", chatGptRequest)
 //        callChatGpt?.enqueue(object: Callback<ChatGptResponse?> {
 //            override fun onResponse(
 //                call: Call<ChatGptResponse?>,
@@ -56,7 +66,28 @@ class ResearchMovieActivity: AppCompatActivity() {
 //
 //        })
         callChatGpt?.enqueue(object : Callback<ChatGptResponse?> {
-            override fun onResponse(call: Call<ChatGptResponse>, response: Response<ChatGptResponse>) {
+//            fun onResponse(call: Call<ChatGptResponse>, response: Response<ChatGptResponse>) {
+//                if (response.isSuccessful) {
+//                    val chatGptResponse = response.body()
+//                    chatGptResponse?.let { recommendations ->
+//                        if (recommendations.choices.isNotEmpty()) {
+//                            val movieTitles = recommendations.choices.take(3).map { it.text.trim() }
+//                            searchMovies(movieTitles)
+//                        } else {
+//                            // Handle case where no recommendations are returned
+//                            displayMessage("No movie recommendations found.")
+//                        }
+//                    }
+//                } else {
+//                    // Handle unsuccessful response from ChatGPT
+//                    displayMessage("Failed to get movie recommendations.")
+//                }
+//            }
+
+            override fun onResponse(
+                call: Call<ChatGptResponse?>,
+                response: Response<ChatGptResponse?>
+            ) {
                 if (response.isSuccessful) {
                     val chatGptResponse = response.body()
                     chatGptResponse?.let { recommendations ->
@@ -70,12 +101,15 @@ class ResearchMovieActivity: AppCompatActivity() {
                     }
                 } else {
                     // Handle unsuccessful response from ChatGPT
-                    displayMessage("Failed to get movie recommendations.")
+                    val errorMessage = response.errorBody()?.string() ?: "Unknown error occurred"
+                    val errorCode = response.code()
+                    displayMessage("Failed to get movie recommendations. Error code: $errorCode. Message: $errorMessage")
+
+
                 }
             }
 
-            override fun onFailure(call: Call<ChatGptResponse>, t: Throwable) {
-                // Handle failure to communicate with ChatGPT API
+            override fun onFailure(call: Call<ChatGptResponse?>, t: Throwable) {
                 displayMessage("Failed to communicate with ChatGPT API.")
             }
         })
@@ -85,7 +119,7 @@ class ResearchMovieActivity: AppCompatActivity() {
         val apiKey = "13365a7" // Replace with your actual OMDb API key
 
         for (title in movieTitles) {
-            val callOMDb = ApiClient.omdbService.searchMoviesByTitle(apiKey, title)
+            val callOMDb = ApiClient.omdbService.getMovieInfo(apiKey, title)
             callOMDb.enqueue(object : Callback<OmdbMovie> {
                 override fun onResponse(call: Call<OmdbMovie>, response: Response<OmdbMovie>) {
                     if (response.isSuccessful) {
@@ -119,6 +153,8 @@ class ResearchMovieActivity: AppCompatActivity() {
     }
 }
 
+
+
 //fun <T> Call<T>?.enqueue(callback: Callback<OMDbResponse>) {
 //
 //}
@@ -137,3 +173,5 @@ class ResearchMovieActivity: AppCompatActivity() {
 //Replace API Keys: Replace "YOUR_CHATGPT_API_KEY" and "YOUR_OMDB_API_KEY" with your actual API keys obtained from respective providers (OpenAI for ChatGPT and OMDb API).
 //UI Considerations: Enhance UI as per your app's design requirements (e.g., adding loading indicators, error handling dialogs).
 //Error Handling: Implement robust error handling to manage failures in API calls or invalid responses.
+
+
