@@ -64,7 +64,7 @@ class SimilarFavMovies : AppCompatActivity() {
         }
 
         btnViewFavorites.setOnClickListener {
-            startActivity(Intent(this, FavoritesActivity::class.java))
+            startActivity(Intent(this, FavouritesActivity::class.java))
         }
     }
 
