@@ -9,6 +9,7 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+
 @Entity(tableName = "favorite_movies")
 data class MovieEntity(
     @PrimaryKey val id: Int,
@@ -16,20 +17,19 @@ data class MovieEntity(
     val release_date: String,
     val poster_path: String
 )
-
 @Dao
 interface MovieDao {
     @Insert
     suspend fun insert(movie: MovieEntity)
 
     @Query("DELETE FROM favorite_movies WHERE id = :id")
-    suspend fun deleteById(id: Int)
+    suspend fun deleteById(id : Int): Int
 
     @Query("SELECT * FROM favorite_movies")
     suspend fun getAllFavorites(): List<MovieEntity>
 }
 
-@Database(entities = [MovieEntity::class], version = 1)
+@Database(entities = [MovieEntity::class], version = 1, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun movieDao(): MovieDao
 
@@ -50,5 +50,8 @@ abstract class AppDatabase : RoomDatabase() {
         }
     }
 }
+
+
+
 
 
